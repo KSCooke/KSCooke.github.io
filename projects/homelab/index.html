@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A self-hosted home network, Kevin Cooke</title>
+  <meta name="description" content="A personal project: DNS, DHCP, HTTPS, home automation, monitoring and encrypted backups for a family home, run from one old laptop and one Git repository.">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<div class="page article">
+  <a class="back" href="../../">← Kevin Cooke</a>
+  <h1>A self-hosted home network</h1>
+  <p class="dek">A personal project, started in October 2026: one old laptop running the network services for a
+    family home, all of it rebuildable from a single Git repository.</p>
+
+  <h2>What it does</h2>
+  <ul>
+    <li><strong>DNS and DHCP for the whole house</strong> with Pi-hole, including ad and tracker blocking that differs
+      per person and per device type, and a fallback path back to the router if the laptop ever fails.</li>
+    <li><strong>Friendly internal names over HTTPS.</strong> Caddy sits in front of every service and signs internal
+      names with its own certificate authority; nothing is exposed to the internet.</li>
+    <li><strong>A family page</strong> where a family member can pause ad blocking on their own device for a few
+      minutes when a site breaks, with an automated report afterwards on what the pause was for.</li>
+    <li><strong>Home Assistant</strong> for lights, the alarm system and small automations such as printer-ink reminders.</li>
+    <li><strong>Monitoring and alerts</strong> (Beszel, container health checks, a DNS watchdog, new-device alerts) sent
+      to a phone.</li>
+    <li><strong>Encrypted off-site backups</strong> with restic and Backrest, and a self-updating, searchable wiki that
+      documents every piece.</li>
+    <li>A self-hosted travel planner for the family, and remote access from a phone over a WireGuard-based VPN.</li>
+  </ul>
+
+  <h2>How it's run</h2>
+  <p>Every service is a pinned Docker Compose stack bound to localhost behind the reverse proxy. Changes to DNS and
+    DHCP go through scripts that show a dry run first and never delete, with a configuration backup taken before
+    every change. Because the laptop is the house's single point of failure for internet access, resource limits
+    keep heavier apps from ever starving DNS, and every change ends with a check that lookups and blocking still work.</p>
+
+  <h2>Privacy</h2>
+  <p>The backup tool behind this project has a short privacy policy: <a href="privacy.html">privacy.html</a>.</p>
+</div>
+</body>
+</html>

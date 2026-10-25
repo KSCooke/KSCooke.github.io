@@ -1,0 +1,111 @@
+/* Kevin Cooke: personal site and CV.
+   Set like a printed CV: one serif face, dates in the margin, thin rules. No framework, no web fonts.
+   Print (Save as PDF) gives a clean résumé copy. */
+
+:root {
+  --paper: #fdfcf8;
+  --ink: #1a1a1a;
+  --soft: #5a5750;
+  --rule: #d8d4c8;
+  --link: #7a2e1f;
+  --measure: 44rem;
+  --gutter: 7.5rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1b1a18;
+    --ink: #e9e6de;
+    --soft: #a9a497;
+    --rule: #3a3833;
+    --link: #e3a08e;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size: 17px;
+  line-height: 1.55;
+  font-kerning: normal;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: .15em; }
+a:hover { text-decoration-thickness: 2px; }
+
+.page { max-width: var(--measure); margin: 0 auto; padding: 3.5rem 1rem 3rem; }
+
+/* Masthead */
+.masthead { margin-bottom: 2.5rem; }
+.masthead h1 { font-size: 2.4rem; font-weight: normal; letter-spacing: .01em; margin: 0; line-height: 1.1; }
+.masthead .title { font-style: italic; font-size: 1.15rem; color: var(--soft); margin: .3rem 0 0; }
+.masthead .intro { margin: 1.1rem 0 0; max-width: 36rem; }
+.masthead .contact { margin: .9rem 0 0; font-size: .95rem; color: var(--soft); }
+.masthead .contact a + a::before { content: "·"; color: var(--soft); margin: 0 .55em; display: inline-block; text-decoration: none; }
+
+/* Sections: heading in the margin column, content beside it */
+section.block {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.1rem;
+  margin-top: 1.6rem;
+}
+section.block > h2 {
+  font-size: .95rem;
+  font-weight: normal;
+  font-variant: small-caps;
+  letter-spacing: .06em;
+  font-variant-caps: all-small-caps;
+  color: var(--soft);
+  margin: 0 0 .9rem;
+}
+
+.entry { display: grid; grid-template-columns: var(--gutter) 1fr; column-gap: 1.25rem; margin: 0 0 1.35rem; }
+.entry .when { color: var(--soft); font-size: .92rem; padding-top: .12rem; white-space: nowrap; }
+.entry h3 { font-size: 1.02rem; margin: 0; font-weight: bold; }
+.entry .role { margin: 0; }
+.entry .role em { color: var(--soft); }
+.entry ul { margin: .35rem 0 0; padding-left: 1.05rem; }
+.entry li { margin: .15rem 0; }
+.entry p { margin: .3rem 0 0; }
+
+dl.skills { display: grid; grid-template-columns: var(--gutter) 1fr; column-gap: 1.25rem; row-gap: .45rem; margin: 0; }
+dl.skills dt { color: var(--soft); font-size: .92rem; padding-top: .1rem; }
+dl.skills dd { margin: 0; }
+
+.note { color: var(--soft); font-size: .92rem; }
+details.more > summary { cursor: pointer; color: var(--link); margin: .25rem 0 1rem calc(var(--gutter) + 1.25rem); list-style: none; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more[open] > summary { display: none; }
+
+.colophon { max-width: var(--measure); margin: 0 auto; padding: 0 1rem 3rem; color: var(--soft); font-size: .88rem; }
+
+/* Article pages (projects, privacy) */
+.article h1 { font-size: 2rem; font-weight: normal; margin: 0 0 .3rem; line-height: 1.15; }
+.article .dek { font-style: italic; color: var(--soft); margin: 0 0 2rem; }
+.article h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+.article p, .article li { max-width: 38rem; }
+.back { font-size: .95rem; margin-bottom: 2rem; display: inline-block; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .page { padding-top: 2.25rem; }
+  .masthead h1 { font-size: 2rem; }
+  .entry, dl.skills { grid-template-columns: 1fr; }
+  .entry .when { padding: 0; order: 2; }
+  dl.skills dt { padding: 0; }
+  details.more > summary { margin-left: 0; }
+}
+
+@media print {
+  :root { --paper: #fff; --ink: #000; --soft: #444; --rule: #999; --link: #000; }
+  body { font-size: 10.5pt; }
+  .page { padding: 0; max-width: none; }
+  a { text-decoration: none; }
+  .colophon, .no-print, details.more > summary { display: none; }
+  details.more > :not(summary) { display: block; }
+  .entry { break-inside: avoid; }
+  section.block { margin-top: 1rem; }
+}
